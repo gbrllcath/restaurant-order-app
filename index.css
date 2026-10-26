@@ -16,7 +16,7 @@ header {
     background-blend-mode: multiply;
     background-size: cover;
     color: white;
-    padding: 20px 20px;
+    padding: 60px 40px;
 }
 
 /* Utility */
@@ -42,13 +42,13 @@ header {
 /* typography */
 
 .header-title {
-    font-size: 40px;
+    font-size: 50px;
     font-family: "Smythe", sans-serif;
     margin-bottom: 5px;
 }
 
 .header-text {
-    font-size: 25px;
+    font-size: 30px;
     font-family: "Smythe", sans-serif; */
 }
 
@@ -57,7 +57,7 @@ header {
 }
 
 .food-name {
-    font-size: 28px;
+    font-size: 30px;
     font-family: "Smythe", sans-serif;
     font-weight: 400;
     margin: 0 0 2 0;
@@ -65,7 +65,7 @@ header {
 
 .food-description {
     font-family: "Smythe", sans-serif;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 400;
     color: #8B8B8B;
     padding: 0 0 10 0;
@@ -73,9 +73,9 @@ header {
 }
 
 .price {
-    font-size: 20px;
-    font-family: "Smythe", sans-serif;
-    margin: 0;
+    font-size: 22px;
+    font-family: "Smythe", sans-serif; 
+    padding-top: 5px;
 }
 
 /* layout */
@@ -107,12 +107,14 @@ header {
     display: flex;
     align-items: center;
     padding-bottom: 20px;
+    gap: 20px;
 }
 
 .order-item {
     display: flex;
     flex: 1;
     align-items: center;
+    gap: 20px;
 }
 
 .order-card {
@@ -166,14 +168,16 @@ header {
 }
 
 /* Buttons */
-.add-btn {
+.add-btn, .minus-btn {
     width: 50px;
     height: 50px;
     border-radius: 50px;
+    font-size: 20px;
     background-color: transparent;
     border: 1px solid #DEDEDE;
     cursor: pointer;
 }
+
 
 .remove-btn {
     border: none;
@@ -193,4 +197,15 @@ header {
     font-weight: bold;
     cursor: pointer;
     margin-top: 20px;
+}
+
+.minus-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+
+/* Hover States */
+.add-btn:hover, .minus-btn:hover {
+    border: 1px solid #888888;
 }

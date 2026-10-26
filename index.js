@@ -1,118 +1,162 @@
-import { menuArray } from '/data.js'
+import { menuArray } from './data.js'
 
 const orderCard = document.getElementById('order-card')
 const orderForm = document.getElementById('order-form')
 const orderConfirmation = document.getElementById('order-confirmation')
+const modalOverlay = document.getElementById('modal-overlay')
 const orderArray = []
 
 // Event Listeners
-document.addEventListener('click', function(e){
-    if(e.target.dataset.add){
+document.addEventListener('click', function (e) {
+    if (e.target.dataset.add) {
         handleAddClick(e.target.dataset.add)
     }
 
-    if(e.target.dataset.remove){
-        handleRemoveBtn(e.target.dataset.remove)
+    if (e.target.dataset.minus) {
+        handleMinusClick(e.target.dataset.minus)
     }
 
-    if(e.target.dataset.complete){
-        handleCompleteOrderBtn(e.target.dataset.complete)
+    if (e.target.dataset.complete) {
+        handleCompleteOrderBtn()
     }
 
 })
 
-orderForm.addEventListener('submit', function(e){
+orderForm.addEventListener('submit', function (e) {
     e.preventDefault()
 
-    document.getElementsByClassName('modal-overlay')[0].style.display = 'none'
+    modalOverlay.style.display = 'none'
     orderConfirmation.style.display = 'flex'
-    orderCard.style.display = 'none'
 
     const customerName = document.getElementById('name').value
     document.getElementById('confirmation-text').textContent = `Thanks, ${customerName}! Your order is being processed.`
-    
+
+    orderArray.length = 0
+    orderForm.reset()
+    render()
+
 })
 
 
 
 // Handle Clicks
-function handleAddClick(itemId){
-    const targetItem = menuArray.filter(function(item){
+function handleAddClick(itemId) {
+    orderConfirmation.style.display = 'none'
+
+    const targetMenuItem = menuArray.filter(function (item) {
         return item.id === Number(itemId)
     })[0]
 
-    orderArray.push(targetItem)
+    const existingOrderItem = orderArray.filter(function (item) {
+        return item.id === targetMenuItem.id
+    })[0]
 
-    document.getElementById('ordered-items').innerHTML = renderOrder(orderArray)
-    calculateTotalPrice(orderArray)
-    updateOrderCard()
+    if (existingOrderItem) {
+        existingOrderItem.quantity += 1
+    } else {
+        orderArray.push({
+            id: targetMenuItem.id,
+            name: targetMenuItem.name,
+            price: targetMenuItem.price,
+            quantity: 1
+        })
+    }
 
+    render()
 }
 
-function handleRemoveBtn(index){
-    orderArray.splice(index, 1)
+function handleMinusClick(itemId) {
+    const orderIndex = orderArray.findIndex(function (item) {
+        return item.id === Number(itemId)
+    })
 
-    document.getElementById('ordered-items').innerHTML = renderOrder(orderArray)
-    calculateTotalPrice(orderArray)
-    updateOrderCard()
+    if (orderIndex === -1) {
+        return
+    }
 
+    orderArray[orderIndex].quantity -= 1
+
+    if (orderArray[orderIndex].quantity === 0) {
+        orderArray.splice(orderIndex, 1)
+    }
+
+    render()
 }
 
-function handleCompleteOrderBtn(){
-    document.getElementsByClassName('modal-overlay')[0].style.display = 'flex'
+function handleCompleteOrderBtn() {
+    modalOverlay.style.display = 'flex'
 }
+
+
 
 
 // Calculations
-function calculateTotalPrice(orderArray){
+function calculateTotalPrice() {
     let totalPrice = 0
 
-    for(let i = 0; i < orderArray.length; i++){
-        totalPrice += orderArray[i].price
+    for (let i = 0; i < orderArray.length; i++) {
+        totalPrice += orderArray[i].price * orderArray[i].quantity
     }
 
-    document.getElementById('total-price').textContent = `$${totalPrice}`
+    return totalPrice
 }
 
 
-// Render menu items
-function getMenuHtml(menuArr){
-    
-    return menuArr.map(function(item){
+// Render menu and ordered items
+function render() {
+    renderMenu()
+    renderOrder()
+}
+
+function renderMenu() {
+    const menuHtml = menuArray.map(function (item) {
+        const orderedItem = orderArray.find(function (orderItem) {
+            return orderItem.id === item.id
+        })
+        
+        let minusState = 'disabled'
+        if (orderedItem) {
+            minusState = ''
+        }
+        
         return `<div class="food-item">
         <span class="food-img">${item.emoji}</span>
         <div class="menu-text">
         <h3 class="food-name">${item.name}</h3>
         <p class="food-description">${item.ingredients.join(', ')}</p>
         <p class="price">$${item.price}</p>
-        </div>
+        </div>    
+        <button data-minus="${item.id}" class="minus-btn" ${minusState}>-</button>    
         <button data-add="${item.id}" class="add-btn">+</button>
         </div>`
     }).join('')
     
+    document.getElementById('menu-items').innerHTML = menuHtml
 }
 
-// Render ordered items
-function renderOrder(orderArray){
-    return orderArray.map(function(item, index){
+function renderOrder() {
+    const orderHtml = orderArray.map(function (item) {
         return `<div class="order-list">
+        <p class="quantity">${item.quantity} x</p>
         <div class="order-item">
         <h3>${item.name}</h3>
-        <button data-remove="${index}" class="remove-btn">remove</button>
-        </div>
-        <p class="price">$${item.price}</p>
+        </div>    
+        <p class="price">$${item.price * item.quantity}</p>
         </div>`
     }).join('')
+    
+    document.getElementById('ordered-items').innerHTML = orderHtml
+    document.getElementById('total-price').textContent = `$${calculateTotalPrice()}`
+    updateOrderCard()
 }
 
 // Show and hide ordered items
-function updateOrderCard(){
+function updateOrderCard() {
     if (orderArray.length > 0) {
         orderCard.style.display = 'block'
     } else {
         orderCard.style.display = 'none'
-    }}
+    }
+}
 
-
-
-document.getElementById('menu-items').innerHTML = getMenuHtml(menuArray)
+render()
