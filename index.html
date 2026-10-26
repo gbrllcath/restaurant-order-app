@@ -1,9 +1,11 @@
+<!DOCTYPE html>
 <html>
     <head>
-       <link rel="stylesheet" href="index.css">
-       <link rel="preconnect" href="https://fonts.googleapis.com">
-       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-       <link href="https://fonts.googleapis.com/css2?family=Smythe&display=swap" rel="stylesheet">
+        <title>Restaurant Order App</title>
+        <link rel="stylesheet" href="index.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Smythe&display=swap" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -11,83 +13,47 @@
             <p class="header-text">The best burgers and pizzas in town.</p>  
         </header>
         <main>
-            <section class="menu-items container">
-                <div class="food-item">
-                    <span class="food-img">🍕</span>
-                    <div class="menu-text">
-                        <h3 class="food-name">Pizza</h3>
-                        <p class="food-description">Pepperoni, mushroom and mozarella</p>
-                        <p class="price">$14</p>
-                    </div>
-                    <button class="add-btn">+</button>
-                </div>
-                <div class="food-item">
-                    <span class="food-img">🍔</span>
-                    <div class="menu-text">
-                        <h3 class="food-name">Hamburger</h3>
-                        <p class="food-description">Beef, cheese and lettuce</p>
-                        <p class="price">$12</p>
-                    </div>
-                    <button class="add-btn">+</button>
-                </div>
-                <div class="food-item">
-                    <span class="food-img">🍺</span>
-                    <div class="menu-text">
-                        <h3 class="food-name">Beer</h3>
-                        <p class="food-description">Grain hops, yeast and water</p>
-                        <p class="price">$12</p>
-                    </div>
-                    <button class="add-btn">+</button>
-                </div>
+            <section id="menu-items" class="menu-items container">
+                    <!-- MENU ITEMS HERE -->
             </section>
 
-            <section class="container order-card">
+            <section id="order-card" class="container order-card">
 
                 <h3 class="section-header">Your Order</h3>
 
-                <div class="order-list">
-                    <div class="order-item">
-                        <h3>Pizza</h3>
-                        <button class="remove-btn">remove</button>
-                    </div>
-                    <p class="price">$14</p>
+                <div id="ordered-items">
+                    <!-- ORDERED ITEMS HERE -->
                 </div>
-                <div class="order-list">
-                    <div class="order-item">
-                        <h3>Beer</h3>
-                        <button class="remove-btn">remove</button>
-                    </div>
-                    <p class="price">$12</p>
-                </div>
+
 
                 <div class="total-price-card">
                     <h3>Total Price</h3>
-                    <p class="total-price">$26</p>
+                    <p id="total-price" class="total-price"><!-- TOTAL PRICE HERE --></p>
                 </div>
 
-                <button class="order-btn">Complete Order</button>
+                <button data-complete="true" class="order-btn">Complete Order</button>
 
             </section>
 
             <section class="modal-overlay container">
                 <div class="confirmation-modal">
                     <h3 class="section-header">Enter Details</h3>
-                    <form class="order-form">
-                        <input class="input" type="text" id="name" placeholder="Enter your name"/>
-                        <input class="input" type="number" id="guest-number" value="guest-number" placeholder="Number of guest" />
+                    <form id="order-form" class="order-form">
+                        <input class="input" type="text" id="name" placeholder="Enter your name" required/>
+                        <input class="input" type="number" id="guest-number" placeholder="Number of guest" required/>
                         <input class="submit-btn" type="submit" value="Place Order"/>
                     </form>
                 </div>
             </section>
 
-            <section class="order-confirmation container section-header">
-                <h3>Thanks, James! Your order is being processed.</h3>
+            <section id="order-confirmation" class="order-confirmation">
+                <h3 id="confirmation-text" class="confirmation-text"><!-- CONFIRMATION MESSAGE HERE --></h3>
             </section>
 
 
         </main>
 
-	<script src="index.js"></script>
+	<script src="index.js" type="module"></script>
     </body>
 </html>
 
