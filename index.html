@@ -1,0 +1,93 @@
+<html>
+    <head>
+       <link rel="stylesheet" href="index.css">
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=Smythe&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <h1 class="header-title">Jimmy's Diner</h1>
+            <p class="header-text">The best burgers and pizzas in town.</p>  
+        </header>
+        <main>
+            <section class="menu-items container">
+                <div class="food-item">
+                    <span class="food-img">🍕</span>
+                    <div class="menu-text">
+                        <h3 class="food-name">Pizza</h3>
+                        <p class="food-description">Pepperoni, mushroom and mozarella</p>
+                        <p class="price">$14</p>
+                    </div>
+                    <button class="add-btn">+</button>
+                </div>
+                <div class="food-item">
+                    <span class="food-img">🍔</span>
+                    <div class="menu-text">
+                        <h3 class="food-name">Hamburger</h3>
+                        <p class="food-description">Beef, cheese and lettuce</p>
+                        <p class="price">$12</p>
+                    </div>
+                    <button class="add-btn">+</button>
+                </div>
+                <div class="food-item">
+                    <span class="food-img">🍺</span>
+                    <div class="menu-text">
+                        <h3 class="food-name">Beer</h3>
+                        <p class="food-description">Grain hops, yeast and water</p>
+                        <p class="price">$12</p>
+                    </div>
+                    <button class="add-btn">+</button>
+                </div>
+            </section>
+
+            <section class="container order-card">
+
+                <h3 class="section-header">Your Order</h3>
+
+                <div class="order-list">
+                    <div class="order-item">
+                        <h3>Pizza</h3>
+                        <button class="remove-btn">remove</button>
+                    </div>
+                    <p class="price">$14</p>
+                </div>
+                <div class="order-list">
+                    <div class="order-item">
+                        <h3>Beer</h3>
+                        <button class="remove-btn">remove</button>
+                    </div>
+                    <p class="price">$12</p>
+                </div>
+
+                <div class="total-price-card">
+                    <h3>Total Price</h3>
+                    <p class="total-price">$26</p>
+                </div>
+
+                <button class="order-btn">Complete Order</button>
+
+            </section>
+
+            <section class="modal-overlay container">
+                <div class="confirmation-modal">
+                    <h3 class="section-header">Enter Details</h3>
+                    <form class="order-form">
+                        <input class="input" type="text" id="name" placeholder="Enter your name"/>
+                        <input class="input" type="number" id="guest-number" value="guest-number" placeholder="Number of guest" />
+                        <input class="submit-btn" type="submit" value="Place Order"/>
+                    </form>
+                </div>
+            </section>
+
+            <section class="order-confirmation container section-header">
+                <h3>Thanks, James! Your order is being processed.</h3>
+            </section>
+
+
+        </main>
+
+	<script src="index.js"></script>
+    </body>
+</html>
+
